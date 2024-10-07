@@ -1,0 +1,39 @@
+[gd_scene load_steps=8 format=3 uid="uid://b11jxlhevqvu0"]
+
+[ext_resource type="Script" path="res://Player/player.gd" id="1_8rk5t"]
+[ext_resource type="Script" path="res://Player/state_machine.gd" id="2_eqjlx"]
+[ext_resource type="Script" path="res://Player/Player States/idle.gd" id="3_ypcsu"]
+[ext_resource type="Script" path="res://Player/Player States/running.gd" id="4_4nxuq"]
+[ext_resource type="Script" path="res://Player/Player States/dashing.gd" id="5_55bp5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ngwmc"]
+size = Vector2(40, 40)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vhy65"]
+radius = 20.0
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_8rk5t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ngwmc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="PlayerHitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHitbox"]
+shape = SubResource("CircleShape2D_vhy65")
+debug_color = Color(0.932942, 2.44504e-05, 0.646688, 0.42)
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_eqjlx")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("3_ypcsu")
+
+[node name="Running" type="Node" parent="StateMachine"]
+script = ExtResource("4_4nxuq")
+
+[node name="Dashing" type="Node" parent="StateMachine"]
+script = ExtResource("5_55bp5")
